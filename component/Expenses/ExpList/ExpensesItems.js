@@ -3,9 +3,11 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { colors } from "../../../constants/Colors";
 import { useNavigation } from "@react-navigation/native";
 const ExpensesItems = ({ data }) => {
-    const navigation = 
+    const navigation = useNavigation();
     function pressHandler(){
-
+        navigation.navigate('ManageExp',{
+            expId:data.id,
+        });
     }
   return (
     <Pressable onPress={pressHandler} style={({pressed})=> pressed ? styles.pressed:''}>

@@ -9,6 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const TabNav = () => {
   const Tab = createBottomTabNavigator();
+  
   const navigation= useNavigation();
   function addHandler(){
     navigation.navigate('ManageExp');
