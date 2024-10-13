@@ -3,9 +3,14 @@ import { StyleSheet, View } from "react-native";
 import IconBtn from "../component/ui/IconBtn";
 import { colors } from "../constants/Colors";
 import CustomBtn from "../component/ui/CustomBtn";
+import { useDispatch } from "react-redux";
+import { addExpense,deleteExpense } from "../store/exp-slice";
+
+
 const ManageScreen = ({ route, navigation }) => {
   const editExpId = route.params?.expId;
   const isEditExpId = !!editExpId;
+  const dispatch = useDispatch();
   useLayoutEffect(() => {
     navigation.setOptions({
       title: isEditExpId ? "Edit Expense" : "Add new Expense",
@@ -13,11 +18,17 @@ const ManageScreen = ({ route, navigation }) => {
   }, [navigation, isEditExpId]);
 
   function cancelHandler(){
-    console.warn('pressed');
+    navigation.goBack();
     
   }
   function confirmHandler(){
-    console.warn('confirmed')
+
+    navigation.goBack();
+  }
+
+  function deleteHandler(){
+    dispatch(deleteExpense(editExpId));
+    navigation.goBack();
   }
   return (
     <View style={styles.container}>
@@ -32,7 +43,7 @@ const ManageScreen = ({ route, navigation }) => {
           icon="delete"
           size={27}
           color={colors.error}
-          onPress={() => {}}
+          onPress={deleteHandler}
         />
         </View>
       )}

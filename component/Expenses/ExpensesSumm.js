@@ -6,6 +6,7 @@ const ExpensesSumm = ({periodName,exps}) => {
     const total = exps.reduce((sum,exp)=>{
         return sum + exp.price;
     },0);
+    
   return (
     <View style={styles.rootContainer}>
       <View style={styles.innerContainer}>
