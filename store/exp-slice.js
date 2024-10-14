@@ -3,9 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const expSlice= createSlice({
     name:'expenses',
     initialState:{
-        exp:[
-            
-        ],
+        exp:[],
     },
     reducers:{
         addExpense:(state,action)=>{
@@ -23,8 +21,7 @@ const expSlice= createSlice({
         },
 
         updateExpense:(id,{desc, price, date})=>{
-            const updateExp = action.payload;
-            const updateExpIndex = state.exp.findIndex((item)=>item.id == updateExp.id);
+            
             
         },
     }

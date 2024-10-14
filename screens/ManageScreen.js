@@ -1,10 +1,11 @@
 import React, { useLayoutEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import IconBtn from "../component/ui/IconBtn";
 import { colors } from "../constants/Colors";
 import CustomBtn from "../component/ui/CustomBtn";
 import { useDispatch } from "react-redux";
 import { addExpense,deleteExpense } from "../store/exp-slice";
+import ExpenseForm from "../component/Expenses/ManageExp/ExpenseForm";
 
 
 const ManageScreen = ({ route, navigation }) => {
@@ -19,10 +20,9 @@ const ManageScreen = ({ route, navigation }) => {
 
   function cancelHandler(){
     navigation.goBack();
-    
   }
-  function confirmHandler(){
 
+  function confirmHandler(){
     navigation.goBack();
   }
 
@@ -30,15 +30,16 @@ const ManageScreen = ({ route, navigation }) => {
     dispatch(deleteExpense(editExpId));
     navigation.goBack();
   }
+  
   return (
     <View style={styles.container}>
+      <ExpenseForm />
       <View style={styles.btnsContainer}>
         <CustomBtn mode='flat' onPress={cancelHandler}>Cancel</CustomBtn>
         <CustomBtn onPress={confirmHandler}>{isEditExpId? 'Update':'Add'}</CustomBtn>
       </View>
       {isEditExpId && (
         <View style={styles.btnContainer}>
-
         <IconBtn
           icon="delete"
           size={27}
