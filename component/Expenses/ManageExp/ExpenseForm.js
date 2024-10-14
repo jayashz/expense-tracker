@@ -9,7 +9,7 @@ import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { addExpense, updateExpense } from "../../../store/exp-slice";
-
+import { storeExp } from "../../../util/https";
 const ExpenseForm = ({ selectedExp }) => {
   const navigation = useNavigation();
   const route = useRoute();
@@ -36,11 +36,12 @@ const ExpenseForm = ({ selectedExp }) => {
   }
 
   function confirmHandler() {
-    let validInput=false;
-    if(title.trim().length>0 && Number(price)>0){
-      validInput=true;
+    let validInput = false;
+    if (title.trim().length > 0 && Number(price) > 0) {
+      validInput = true;
     }
     if (isEditExpId && validInput) {
+      
       dispatch(
         updateExpense({
           id: editExpId,
@@ -49,13 +50,17 @@ const ExpenseForm = ({ selectedExp }) => {
           date: date.toISOString(),
         })
       );
-    } else if(!isEditExpId && validInput) {
+    } else if (!isEditExpId && validInput) {
+      storeExp({
+        title: title,
+        price: price,
+        date: date.toISOString(),
+      });
       dispatch(
         addExpense({ title: title, price: price, date: date.toISOString() })
       );
-    }
-    else{
-      Alert.alert("Invalid input!!","Check your inputs and try again")
+    } else {
+      Alert.alert("Invalid input!!", "Check your inputs and try again");
       return;
     }
     navigation.goBack();

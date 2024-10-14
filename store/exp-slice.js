@@ -31,8 +31,13 @@ const expSlice= createSlice({
             }
         
         },
+        setExpense:(state,action)=>{
+            state.exp.push(...action.payload.reverse());
+            console.log(state.exp);
+
+        }
     }
 
 });
-export const {addExpense,deleteExpense,updateExpense} = expSlice.actions;
+export const {addExpense,deleteExpense,updateExpens,setExpense} = expSlice.actions;
 export default expSlice;
