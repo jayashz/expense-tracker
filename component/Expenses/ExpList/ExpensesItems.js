@@ -17,7 +17,7 @@ const ExpensesItems = ({ data }) => {
             {data.title}
           </Text>
           <Text style={[styles.text, { fontSize: 14 }]}>
-            {data.date.toDateString()}
+            {new Date(data.date).toDateString()}
           </Text>
         </View>
         <View style={styles.priceContainer}>

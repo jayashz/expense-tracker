@@ -18,26 +18,16 @@ const ManageScreen = ({ route, navigation }) => {
     });
   }, [navigation, isEditExpId]);
 
-  function cancelHandler(){
-    navigation.goBack();
-  }
-
-  function confirmHandler(){
-    navigation.goBack();
-  }
-
+ 
   function deleteHandler(){
     dispatch(deleteExpense(editExpId));
     navigation.goBack();
   }
-  
+
   return (
     <View style={styles.container}>
       <ExpenseForm />
-      <View style={styles.btnsContainer}>
-        <CustomBtn mode='flat' onPress={cancelHandler}>Cancel</CustomBtn>
-        <CustomBtn onPress={confirmHandler}>{isEditExpId? 'Update':'Add'}</CustomBtn>
-      </View>
+      
       {isEditExpId && (
         <View style={styles.btnContainer}>
         <IconBtn
@@ -66,9 +56,5 @@ const styles= StyleSheet.create({
     borderTopColor:colors.primary100,
     alignItems:'center',
   },
-  btnsContainer:{
-    flexDirection:'row',
-    justifyContent:'space-between',
-    alignItems:'center',
-  }
+  
 })

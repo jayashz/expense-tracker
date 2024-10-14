@@ -9,7 +9,7 @@ const expSlice= createSlice({
         addExpense:(state,action)=>{
             const newExp = action.payload;
             state.exp.push({
-                id:Math.floor(Math.random()*100),
+                id:Math.floor(Math.random()*1000),
                 title:newExp.title,
                 price:newExp.price,
                 date:newExp.date,

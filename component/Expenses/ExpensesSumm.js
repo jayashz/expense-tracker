@@ -4,14 +4,14 @@ import { colors } from "../../constants/Colors";
 
 const ExpensesSumm = ({periodName,exps}) => {
     const total = exps.reduce((sum,exp)=>{
-        return sum + exp.price;
+        return sum + Number(exp.price);
     },0);
-    
+
   return (
     <View style={styles.rootContainer}>
       <View style={styles.innerContainer}>
       <Text style={styles.text}>{periodName}</Text>
-      <Text style={styles.text}>Rs. {total.toFixed(2)}</Text>
+      <Text style={styles.text}>Rs. {total}</Text>
       </View>
     </View>
   );
