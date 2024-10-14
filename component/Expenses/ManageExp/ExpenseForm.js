@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { Alert, StyleSheet, View } from "react-native";
 import Input from "./Input";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import CustomBtn from "../../ui/CustomBtn";
@@ -36,7 +36,11 @@ const ExpenseForm = ({ selectedExp }) => {
   }
 
   function confirmHandler() {
-    if (isEditExpId) {
+    let validInput=false;
+    if(title.trim().length>0 && Number(price)>0){
+      validInput=true;
+    }
+    if (isEditExpId && validInput) {
       dispatch(
         updateExpense({
           id: editExpId,
@@ -45,10 +49,14 @@ const ExpenseForm = ({ selectedExp }) => {
           date: date.toISOString(),
         })
       );
-    } else {
+    } else if(!isEditExpId && validInput) {
       dispatch(
         addExpense({ title: title, price: price, date: date.toISOString() })
       );
+    }
+    else{
+      Alert.alert("Invalid input!!","Check your inputs and try again")
+      return;
     }
     navigation.goBack();
   }
