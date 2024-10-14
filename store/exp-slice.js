@@ -20,12 +20,19 @@ const expSlice= createSlice({
             state.exp = state.exp.filter((item)=>item.id !== expId);
         },
 
-        updateExpense:(id,{desc, price, date})=>{
-            
-            
+        updateExpense:(state, action)=>{
+            const { id, title, price, date } = action.payload;
+
+            const expenseToUpdate = state.exp.find(item => item.id === id);
+            if (expenseToUpdate) {
+                expenseToUpdate.title = title;
+                expenseToUpdate.price = price;
+                expenseToUpdate.date = date;
+            }
+        
         },
     }
 
 });
-export const {addExpense,deleteExpense} = expSlice.actions;
+export const {addExpense,deleteExpense,updateExpense} = expSlice.actions;
 export default expSlice;

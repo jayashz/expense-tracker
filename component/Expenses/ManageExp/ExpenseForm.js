@@ -8,8 +8,9 @@ import { colors } from "../../../constants/Colors";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
-import { addExpense } from "../../../store/exp-slice";
-const ExpenseForm = () => {
+import { addExpense, updateExpense } from "../../../store/exp-slice";
+
+const ExpenseForm = ({ selectedExp }) => {
   const navigation = useNavigation();
   const route = useRoute();
   const dispatch = useDispatch();
@@ -17,9 +18,11 @@ const ExpenseForm = () => {
   const editExpId = route.params?.expId;
   const isEditExpId = !!editExpId;
 
-  const [title, setTitle] = useState("");
-  const [price, setPrice] = useState("0");
-  const [date, setDate] = useState(new Date());
+  const [title, setTitle] = useState(selectedExp ? selectedExp.title : "");
+  const [price, setPrice] = useState(selectedExp ? selectedExp.price : "");
+  const [date, setDate] = useState(
+    selectedExp ? new Date(selectedExp.date) : new Date()
+  );
 
   const [open, setOpen] = useState(false);
 
@@ -33,8 +36,20 @@ const ExpenseForm = () => {
   }
 
   function confirmHandler() {
-    console.log(date.toISOString);
-    dispatch(addExpense({ title: title, price: price, date: date.toISOString() }));
+    if (isEditExpId) {
+      dispatch(
+        updateExpense({
+          id: editExpId,
+          title: title,
+          price: price,
+          date: date.toISOString(),
+        })
+      );
+    } else {
+      dispatch(
+        addExpense({ title: title, price: price, date: date.toISOString() })
+      );
+    }
     navigation.goBack();
   }
 

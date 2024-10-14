@@ -4,14 +4,16 @@ import IconBtn from "../component/ui/IconBtn";
 import { colors } from "../constants/Colors";
 import CustomBtn from "../component/ui/CustomBtn";
 import { useDispatch } from "react-redux";
-import { addExpense,deleteExpense } from "../store/exp-slice";
+import { deleteExpense } from "../store/exp-slice";
 import ExpenseForm from "../component/Expenses/ManageExp/ExpenseForm";
-
+import { useSelector } from "react-redux";
 
 const ManageScreen = ({ route, navigation }) => {
   const editExpId = route.params?.expId;
   const isEditExpId = !!editExpId;
   const dispatch = useDispatch();
+  const data = useSelector(state=>state.expenses.exp);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       title: isEditExpId ? "Edit Expense" : "Add new Expense",
@@ -23,10 +25,15 @@ const ManageScreen = ({ route, navigation }) => {
     dispatch(deleteExpense(editExpId));
     navigation.goBack();
   }
+  
+
+  const selectedExp = data.find((item)=>item.id==editExpId); //Grabs the selected expense from the main screens.
 
   return (
     <View style={styles.container}>
-      <ExpenseForm />
+      <ExpenseForm
+        selectedExp={selectedExp}
+       />
       
       {isEditExpId && (
         <View style={styles.btnContainer}>
