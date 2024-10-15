@@ -9,11 +9,14 @@ import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { addExpense, updateExpense } from "../../../store/exp-slice";
-import { storeExp } from "../../../util/https";
+import { storeExp, updateExp } from "../../../util/https";
+import LoadingOverlay from "../../ui/LoadingOverlay";
+
 const ExpenseForm = ({ selectedExp }) => {
   const navigation = useNavigation();
   const route = useRoute();
   const dispatch = useDispatch();
+  const [isSubmitting, setIsSubmitting]= useState(false);
 
   const editExpId = route.params?.expId;
   const isEditExpId = !!editExpId;
@@ -35,13 +38,22 @@ const ExpenseForm = ({ selectedExp }) => {
     navigation.goBack();
   }
 
-  function confirmHandler() {
+  async function confirmHandler() {
     let validInput = false;
-    if (title.trim().length > 0 && Number(price) > 0) {
+    setIsSubmitting(true);
+    
+
+    if(title.trim().length > 0 && Number(price) > 0) {
       validInput = true;
     }
+    
     if (isEditExpId && validInput) {
       
+      await updateExp(editExpId, {
+        title: title,
+        price: price,
+        date: date.toISOString(),
+      });
       dispatch(
         updateExpense({
           id: editExpId,
@@ -51,19 +63,30 @@ const ExpenseForm = ({ selectedExp }) => {
         })
       );
     } else if (!isEditExpId && validInput) {
-      storeExp({
+
+      const id = await storeExp({
         title: title,
         price: price,
         date: date.toISOString(),
       });
       dispatch(
-        addExpense({ title: title, price: price, date: date.toISOString() })
+        addExpense({
+          id: id,
+          title: title,
+          price: price,
+          date: date.toISOString(),
+        })
       );
     } else {
       Alert.alert("Invalid input!!", "Check your inputs and try again");
       return;
     }
+    setIsSubmitting(false);
     navigation.goBack();
+  }
+
+  if(isSubmitting){
+    return <LoadingOverlay />
   }
 
   return (

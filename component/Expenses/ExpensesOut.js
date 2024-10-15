@@ -7,16 +7,18 @@ import { useSelector } from "react-redux";
 import { fetchExp } from "../../util/https";
 import { setExpense } from "../../store/exp-slice";
 import { useDispatch } from "react-redux";
+import LoadingOverlay from "../ui/LoadingOverlay";
+import ErrorScreen from "../ui/ErrorScreen";
 const ExpensesOut = ({ expPeriod }) => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.expenses.exp);
-
+  const [isFetching,setIsFetching]=useState(true);
+  const [error,setError] = useState();
   const presentDate = new Date();
   const presentDay = presentDate.getDate();
   const presentMonth = presentDate.getMonth() + 1;
   const presentYear = presentDate.getFullYear();
-  const presentDatee = new Date(presentYear, presentMonth - 1, presentDay);
-  const sevenDaysAgo = new Date(presentYear, presentMonth - 1, presentDay - 7);
+  
 
   const filteredData = data.filter((exp) => {
     const expDate = new Date(exp.date);
@@ -34,15 +36,29 @@ const ExpensesOut = ({ expPeriod }) => {
     }
     
   });
-  console.log(filteredData);
+
   useEffect(() => {
     async function getExpenses() {
-      const expenses = await fetchExp();
-
-      dispatch(setExpense(expenses));
+      setIsFetching(true);
+      try{
+        const expenses = await fetchExp();
+        dispatch(setExpense(expenses));
+      }catch(error){
+        setError('Could not fetch Expenses...');
+      }
+      setIsFetching(false);
     }
     getExpenses();
   }, []);
+  function errorHandler(){
+    setError(null);
+  }
+  if(error){
+    return <ErrorScreen message={error} onConfirm={errorHandler} />
+  }
+  if(isFetching){
+    return <LoadingOverlay/>
+  }
   return (
     <View style={styles.mainContainer}>
       <ExpensesSumm

@@ -1,11 +1,14 @@
 import axios from "axios";
 const BackendUrl='https://my-expense-tracker-6ba25-default-rtdb.firebaseio.com';
-export function storeExp({title,price, date}){
+
+export async function storeExp({title,price, date}){
     const expData={title:title, price:price, date:date};
 
-    axios.post( BackendUrl+'/expenses.json',
+    const response = await axios.post( BackendUrl+'/expenses.json',
         expData
     );
+    const id = response.data.name;
+    return id;
 }
 
 export async function fetchExp(){
@@ -24,4 +27,12 @@ export async function fetchExp(){
         expenses.push(expenseObj);
     }
     return expenses;
+}
+
+export  function updateExp(id, {title,price,date}){
+    const expData= {title:title, price:price, date:date}
+    return axios.put(BackendUrl + `/expenses/${id}.json`,expData)
+}
+export function deleteExp(id){
+    return axios.delete(BackendUrl+`/expenses/${id}.json`);
 }

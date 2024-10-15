@@ -9,7 +9,7 @@ const expSlice= createSlice({
         addExpense:(state,action)=>{
             const newExp = action.payload;
             state.exp.push({
-                id:Math.floor(Math.random()*1000),
+                id:newExp.id,
                 title:newExp.title,
                 price:newExp.price,
                 date:newExp.date,
@@ -21,8 +21,9 @@ const expSlice= createSlice({
         },
 
         updateExpense:(state, action)=>{
-            const { id, title, price, date } = action.payload;
 
+            const { id, title, price, date } = action.payload;
+            console.log(action.payload);
             const expenseToUpdate = state.exp.find(item => item.id === id);
             if (expenseToUpdate) {
                 expenseToUpdate.title = title;
@@ -33,10 +34,9 @@ const expSlice= createSlice({
         },
         setExpense:(state,action)=>{
             state.exp = [...action.payload.reverse()];
-
         }
     }
 
 });
-export const {addExpense,deleteExpense,updateExpens,setExpense} = expSlice.actions;
+export const {addExpense,deleteExpense,updateExpense,setExpense} = expSlice.actions;
 export default expSlice;

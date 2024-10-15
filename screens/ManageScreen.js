@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { deleteExpense } from "../store/exp-slice";
 import ExpenseForm from "../component/Expenses/ManageExp/ExpenseForm";
 import { useSelector } from "react-redux";
+import { deleteExp } from "../util/https";
 
 const ManageScreen = ({ route, navigation }) => {
   const editExpId = route.params?.expId;
@@ -21,8 +22,9 @@ const ManageScreen = ({ route, navigation }) => {
   }, [navigation, isEditExpId]);
 
  
-  function deleteHandler(){
+  async function deleteHandler(){
     dispatch(deleteExpense(editExpId));
+    await deleteExp(editExpId);
     navigation.goBack();
   }
   
