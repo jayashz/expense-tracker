@@ -32,8 +32,7 @@ const expSlice= createSlice({
         
         },
         setExpense:(state,action)=>{
-            state.exp.push(...action.payload.reverse());
-            console.log(state.exp);
+            state.exp = [...action.payload.reverse()];
 
         }
     }
