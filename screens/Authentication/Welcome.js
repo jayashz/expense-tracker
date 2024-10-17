@@ -2,6 +2,7 @@ import React from "react";
 import { View, ImageBackground, Text } from "react-native";
 import { StyleSheet } from "react-native";
 import CustomBtn from "../../component/ui/CustomBtn";
+import { colors } from "../../constants/Colors";
 const Welcome = ({navigation}) => {
 
   function toLogin(){
@@ -19,7 +20,7 @@ const Welcome = ({navigation}) => {
         <Text style={style.heading}>WELCOME</Text>
         <View style={style.innerContainer}>
 
-            <CustomBtn onPress={toLogin}>Login</CustomBtn>
+            <CustomBtn onPress={toLogin} color={colors.primary300}>Login</CustomBtn>
             <CustomBtn onPress={toSignUp}>Signup</CustomBtn>
 
         </View>

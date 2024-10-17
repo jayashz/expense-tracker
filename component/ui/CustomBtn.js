@@ -6,7 +6,7 @@ const CustomBtn = ({ children, onPress, mode }) => {
   return (
     <View>
       <Pressable onPress={onPress} style={({pressed})=>pressed? styles.pressed:''}>
-        <View style={[styles.btn, mode === "flat" && styles.flat]}>
+        <View style={[styles.btn, mode === "flat" && styles.flat,]}>
           <Text style={[styles.btnText, mode === "flat" && styles.flatText]}>
             {children}
           </Text>
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   btn: {
     borderRadius: 4,
     padding: 6,
-    backgroundColor: colors.primary100,
+    backgroundColor: colors.primary300,
     minWidth:150
   },
   flat: {
