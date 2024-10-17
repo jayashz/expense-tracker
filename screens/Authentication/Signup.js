@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { View, Image, SafeAreaView, StyleSheet, Alert } from "react-native";
 import BackIcons from "../../component/ui/BackIcons";
 import AuthForm from "../../component/Auth/AuthForm";

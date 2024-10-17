@@ -1,8 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import {
   Alert,
   Image,
-  ImageBackground,
   SafeAreaView,
   StyleSheet,
   View,
@@ -12,13 +11,14 @@ import BackIcons from "../../component/ui/BackIcons";
 import { colors } from "../../constants/Colors";
 import { authenticateUser } from "../../util/auth";
 import LoadingOverlay from "../../component/ui/LoadingOverlay";
-import { useDispatch } from "react-redux";
+import { useDispatch} from "react-redux";
 import { authenticate } from "../../store/auth-slicee";
 
 const Login = () => {
   const mode = "signInWithPassword";
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const dispatch = useDispatch();
+
 
   async function authenticationHandler({ email, password }) {
     setIsAuthenticating(true);
