@@ -18,16 +18,12 @@ const AuthForm = ({ onAuthenticate, state }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [isValidEmail, setIsValidEmail] = useState(false);
-  const [isValidPassword, setIsValidPassword] = useState(false);
-  const [isPasswordConfirmed, setIsPasswordConfirmed] = useState(false);
-
   const [showPassword, setShowPassword] = useState(false);
   
   function submitHandler() {
-    setIsValidEmail(email.trim().includes("@"));
-    setIsValidPassword(password.trim().length > 6);
-    setIsPasswordConfirmed(password.trim() === confirmPassword.trim());
+    const isValidEmail=(email.trim().includes("@"));
+    const isValidPassword=(password.trim().length > 6);
+    const isPasswordConfirmed=(password.trim() === confirmPassword.trim());
 
     if (state == "login") {
       if (isValidEmail && isValidPassword) {
