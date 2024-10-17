@@ -1,15 +1,11 @@
-import { NavigationContainer } from "@react-navigation/native";
-import Authenticate from "./Authenticate";
-import React from "react";
+import { Provider } from "react-redux";
+import Navigation from "./Navigation";
+import { Provider } from "react-redux";
 
-function App() {
-  return (
-    <>
-      <NavigationContainer>
-        <Authenticate />
-      </NavigationContainer>
-    </>
-  );
+export default function App(){
+    return(
+        
+            <Navigation/>
+
+    )
 }
-
-export default App;

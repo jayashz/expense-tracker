@@ -23,7 +23,7 @@ const expSlice= createSlice({
         updateExpense:(state, action)=>{
 
             const { id, title, price, date } = action.payload;
-            console.log(action.payload);
+
             const expenseToUpdate = state.exp.find(item => item.id === id);
             if (expenseToUpdate) {
                 expenseToUpdate.title = title;

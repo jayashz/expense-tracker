@@ -11,7 +11,7 @@ import store from "./store/store";
 export default function Authenticated() {
   const Stack = createStackNavigator();
   return (
-    <Provider store={store}>
+    
       
         <Stack.Navigator
           screenOptions={{
@@ -40,6 +40,6 @@ export default function Authenticated() {
           />
         </Stack.Navigator>
 
-    </Provider>
+
   );
 }
