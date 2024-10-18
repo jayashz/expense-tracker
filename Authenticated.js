@@ -1,11 +1,10 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
 import ManageScreen from "./screens/ManageScreen";
 import TabNav from "./Navigation/TabNav";
 import { colors } from "./constants/Colors";
-import Logout from "./screens/Logout";
+
 
 export default function Authenticated() {
   const Stack = createStackNavigator();

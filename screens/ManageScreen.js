@@ -15,15 +15,16 @@ const ManageScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.expenses.exp);
   const token = useSelector((state) => state.authenticate.token);
-  if (Platform.OS == "android") {
-    navigation.setOptions({
-      headerShown: false,
-    });
-  }
+  
   useLayoutEffect(() => {
     navigation.setOptions({
       title: isEditExpId ? "Edit Expense" : "Add new Expense",
     });
+    if (Platform.OS == "android") {
+      navigation.setOptions({
+        headerShown: false,
+      });
+    }
   }, [navigation, isEditExpId]);
 
   async function deleteHandler() {

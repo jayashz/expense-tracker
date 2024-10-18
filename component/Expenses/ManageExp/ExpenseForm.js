@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Alert, StyleSheet, View } from "react-native";
+import {
+  Alert,
+  Pressable,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import Input from "./Input";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import CustomBtn from "../../ui/CustomBtn";
@@ -11,15 +17,13 @@ import { useDispatch } from "react-redux";
 import { addExpense, updateExpense } from "../../../store/exp-slice";
 import { storeExp, updateExp } from "../../../util/https";
 import LoadingOverlay from "../../ui/LoadingOverlay";
-import { useSelector
-
- } from "react-redux";
+import { useSelector } from "react-redux";
 const ExpenseForm = ({ selectedExp }) => {
   const navigation = useNavigation();
   const route = useRoute();
   const dispatch = useDispatch();
-  const [isSubmitting, setIsSubmitting]= useState(false);
-  const token = useSelector(state=>state.authenticate.token);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const token = useSelector((state) => state.authenticate.token);
 
   const editExpId = route.params?.expId;
   const isEditExpId = !!editExpId;
@@ -34,7 +38,9 @@ const ExpenseForm = ({ selectedExp }) => {
 
   function onDateChange(e, selectedDate) {
     setDate(selectedDate);
-    setOpen(false);
+    if (Platform.OS == "android") {
+      setOpen(false);
+    }
   }
 
   function cancelHandler() {
@@ -44,15 +50,13 @@ const ExpenseForm = ({ selectedExp }) => {
   async function confirmHandler() {
     let validInput = false;
     setIsSubmitting(true);
-    
 
-    if(title.trim().length > 0 && Number(price) > 0) {
+    if (title.trim().length > 0 && Number(price) > 0) {
       validInput = true;
     }
-    
+
     if (isEditExpId && validInput) {
-      
-      await updateExp(editExpId,token, {
+      await updateExp(editExpId, token, {
         title: title,
         price: price,
         date: date.toISOString(),
@@ -66,8 +70,7 @@ const ExpenseForm = ({ selectedExp }) => {
         })
       );
     } else if (!isEditExpId && validInput) {
-
-      const id = await storeExp(token,{
+      const id = await storeExp(token, {
         title: title,
         price: price,
         date: date.toISOString(),
@@ -88,8 +91,8 @@ const ExpenseForm = ({ selectedExp }) => {
     navigation.goBack();
   }
 
-  if(isSubmitting){
-    return <LoadingOverlay />
+  if (isSubmitting) {
+    return <LoadingOverlay />;
   }
 
   return (
@@ -113,19 +116,35 @@ const ExpenseForm = ({ selectedExp }) => {
         }}
       />
       <View style={styles.innerContainer}>
-        {Platform.OS == "android" ? (
-          <CustomBtn style={styles.cusBtn} onPress={() => setOpen(!open)}>
+        {!open ? (
+          <CustomBtn
+            height={40}
+            style={styles.cusBtn}
+            onPress={() => setOpen(!open)}
+          >
             {date.toDateString()}
           </CustomBtn>
         ) : (
-          <DateTimePicker
-            accentColor={colors.primary300}
-            value={date}
-            onChange={onDateChange}
-          />
+          ""
         )}
 
-        {open && <DateTimePicker value={date} onChange={onDateChange} />}
+        {open && (
+          <>
+            <DateTimePicker
+              value={date}
+              onChange={onDateChange}
+              display="spinner"
+              style={{ height: 100 }}
+            />
+            {Platform.OS == "ios" ? (
+              <CustomBtn mode="flat" onPress={() => setOpen(false)}>
+                Okay
+              </CustomBtn>
+            ) : (
+              ""
+            )}
+          </>
+        )}
       </View>
       <View style={styles.btnsContainer}>
         <CustomBtn mode="flat" onPress={cancelHandler}>
@@ -154,5 +173,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    marginTop: 20,
   },
 });

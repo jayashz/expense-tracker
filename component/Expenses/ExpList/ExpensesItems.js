@@ -10,7 +10,7 @@ const ExpensesItems = ({ data }) => {
         });
     }
   return (
-    <Pressable onPress={pressHandler} style={({pressed})=> pressed ? styles.pressed:''}>
+    <Pressable onPress={pressHandler} style={({pressed})=> pressed ? styles.pressed:'' }>
       <View style={styles.container}>
         <View>
           <Text style={[styles.text, { fontWeight: "bold", fontSize: 17 }]}>

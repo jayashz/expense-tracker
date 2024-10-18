@@ -2,7 +2,7 @@ import React from "react";
 import { View, ImageBackground, Text } from "react-native";
 import { StyleSheet } from "react-native";
 import CustomBtn from "../../component/ui/CustomBtn";
-import { colors } from "../../constants/Colors";
+
 const Welcome = ({ navigation }) => {
   function toLogin() {
     navigation.navigate("login");
