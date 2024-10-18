@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   priceContainer: {
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.primary100,
     justifyContent: "center",
     borderRadius: 8,
     padding: 4,

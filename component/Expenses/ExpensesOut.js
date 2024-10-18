@@ -48,7 +48,7 @@ export default ExpensesOut;
 const styles = StyleSheet.create({
   mainContainer: {
     padding: 22,
-    backgroundColor: colors.primary100,
+    backgroundColor: colors.secondary,
     flex: 1,
     overflow: "visible",
   },

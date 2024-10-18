@@ -22,7 +22,8 @@ const styles= StyleSheet.create({
     },
     label:{
         textAlign:'center',
-        color:colors.primary300
+        color:colors.primary300,
+        fontWeight:'600'
     }
 });
 

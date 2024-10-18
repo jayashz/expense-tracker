@@ -104,6 +104,7 @@ const ExpenseForm = ({ selectedExp }) => {
           textAlign: "center",
           value: title,
         }}
+        
       />
 
       <Input
