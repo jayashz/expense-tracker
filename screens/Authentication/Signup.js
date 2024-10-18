@@ -12,14 +12,13 @@ const Signup = () => {
   const mode = "signUp";
   const dispatch = useDispatch();
 
-
   async function signup({ email, password }) {
     setIsAuthenticating(true);
     try {
       const token = await authenticateUser(mode, email, password);
       dispatch(authenticate(token));
     } catch (error) {
-      Alert.alert('SignUp failed!!','Try again later.');
+      Alert.alert("SignUp failed!!", "Try again later.");
     }
     setIsAuthenticating(false);
   }
@@ -30,12 +29,14 @@ const Signup = () => {
   return (
     <View style={{ flex: 1 }}>
       <SafeAreaView style={{ position: "relative" }}>
-        <BackIcons />
+        <View style={{ padding: 24}}>
+          <BackIcons />
 
-        <Image
-          source={require("../../assets/add-user.png")}
-          style={{ width: 150, height: 150, alignSelf: "center" }}
-        />
+          <Image
+            source={require("../../assets/add-user.png")}
+            style={{ width: 150, height: 150, alignSelf: "center" }}
+          />
+        </View>
       </SafeAreaView>
 
       <View style={style.innerContainer}>

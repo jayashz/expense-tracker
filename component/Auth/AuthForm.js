@@ -83,7 +83,7 @@ const AuthForm = ({ onAuthenticate, state }) => {
           autoCorrect={false}
           secureTextEntry={showPassword?false:true}
         />
-        <TouchableOpacity onPress={()=>setShowPassword(!showPassword)} style={{position:'absolute',right:-26,top:5}}>{showPassword?<Ionicons name="eye" size={24} color="black" />:<Ionicons name="eye-off" size={24} color="black" />}</TouchableOpacity>
+        <TouchableOpacity onPress={()=>setShowPassword(!showPassword)} style={{position:'absolute',transform: [{ translateX: 1/2 }],right:-24}}>{showPassword?<Ionicons name="eye" size={24} color="black" />:<Ionicons name="eye-off" size={24} color="black" />}</TouchableOpacity>
       </View>
       {state == "login" ? (
         ""

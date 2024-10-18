@@ -8,6 +8,7 @@ import IconBtn from "../component/ui/IconBtn";
 import { useNavigation } from "@react-navigation/native";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Logout from "../screens/Logout";
+import { View } from "react-native";
 const TabNav = () => {
   const Tab = createBottomTabNavigator();
 
@@ -29,12 +30,15 @@ const TabNav = () => {
           fontSize: 24,
         },
         headerRight: ({ tintColor }) => (
-          <IconBtn
+          <View style={{backgroundColor:colors.primary100,borderRadius:50,padding:4,marginRight:18}}>
+             <IconBtn
             icon="pluscircleo"
-            size={20}
-            color={tintColor}
+            size={24}
+            color={colors.primary300}
             onPress={addHandler}
           />
+          </View>
+         
         ),
       }}
     >
