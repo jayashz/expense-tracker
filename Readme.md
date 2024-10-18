@@ -27,7 +27,7 @@ Step 5: to start expo
 ```bash
 s
 ```
-Step 6: to run on ios or android
+Step 6: to run on ios or android simulator. Or scan the qr with your device using expo go.
 ```bash 
 i
 a
