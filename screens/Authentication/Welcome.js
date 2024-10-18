@@ -20,8 +20,8 @@ const Welcome = ({navigation}) => {
         <Text style={style.heading}>WELCOME</Text>
         <View style={style.innerContainer}>
 
-            <CustomBtn onPress={toLogin} color={colors.primary300}>Login</CustomBtn>
-            <CustomBtn onPress={toSignUp}>Signup</CustomBtn>
+            <CustomBtn onPress={toLogin} height={50}>Login</CustomBtn>
+            <CustomBtn onPress={toSignUp} height={50}>Signup</CustomBtn>
 
         </View>
       </View>

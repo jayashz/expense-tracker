@@ -11,12 +11,15 @@ import { useDispatch } from "react-redux";
 import { addExpense, updateExpense } from "../../../store/exp-slice";
 import { storeExp, updateExp } from "../../../util/https";
 import LoadingOverlay from "../../ui/LoadingOverlay";
+import { useSelector
 
+ } from "react-redux";
 const ExpenseForm = ({ selectedExp }) => {
   const navigation = useNavigation();
   const route = useRoute();
   const dispatch = useDispatch();
   const [isSubmitting, setIsSubmitting]= useState(false);
+  const token = useSelector(state=>state.authenticate.token);
 
   const editExpId = route.params?.expId;
   const isEditExpId = !!editExpId;
@@ -49,7 +52,7 @@ const ExpenseForm = ({ selectedExp }) => {
     
     if (isEditExpId && validInput) {
       
-      await updateExp(editExpId, {
+      await updateExp(editExpId,token, {
         title: title,
         price: price,
         date: date.toISOString(),
@@ -64,7 +67,7 @@ const ExpenseForm = ({ selectedExp }) => {
       );
     } else if (!isEditExpId && validInput) {
 
-      const id = await storeExp({
+      const id = await storeExp(token,{
         title: title,
         price: price,
         date: date.toISOString(),

@@ -1,22 +1,20 @@
 import axios from "axios";
-const BackendUrl='https://my-expense-tracker-6ba25-default-rtdb.firebaseio.com';
+import { BackendUrl } from "../keys";
 
-export async function storeExp({title,price, date}){
+export async function storeExp(token,{title,price, date}){
     const expData={title:title, price:price, date:date};
 
-    const response = await axios.post( BackendUrl+'/expenses.json',
+    const response = await axios.post( BackendUrl+'/expenses.json?auth='+token,
         expData
     );
     const id = response.data.name;
     return id;
 }
 
-export async function fetchExp(){
-    const response = await axios.get(BackendUrl+'/expenses.json');
+export async function fetchExp(token){
+    const response = await axios.get(BackendUrl+'/expenses.json?auth='+token);
 
     const expenses = [];
-
-
     for(const key in response.data){
         const expenseObj={
             id:key,
@@ -29,10 +27,10 @@ export async function fetchExp(){
     return expenses;
 }
 
-export  function updateExp(id, {title,price,date}){
+export  function updateExp(id, token,{title,price,date}){
     const expData= {title:title, price:price, date:date}
-    return axios.put(BackendUrl + `/expenses/${id}.json`,expData)
+    return axios.put(BackendUrl + `/expenses/${id}.json?auth=${token}`,expData)
 }
-export function deleteExp(id){
-    return axios.delete(BackendUrl+`/expenses/${id}.json`);
+export function deleteExp(id,token){
+    return axios.delete(BackendUrl+`/expenses/${id}.json?auth=${token}`);
 }

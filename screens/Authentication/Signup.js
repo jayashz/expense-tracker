@@ -5,18 +5,19 @@ import AuthForm from "../../component/Auth/AuthForm";
 import { colors } from "../../constants/Colors";
 import { authenticateUser } from "../../util/auth";
 import LoadingOverlay from "../../component/ui/LoadingOverlay";
-
+import { useDispatch } from "react-redux";
+import { authenticate } from "../../store/auth-slicee";
 const Signup = () => {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const mode = "signUp";
-
+  const dispatch = useDispatch();
 
 
   async function signup({ email, password }) {
     setIsAuthenticating(true);
     try {
       const token = await authenticateUser(mode, email, password);
-
+      dispatch(authenticate(token));
     } catch (error) {
       Alert.alert('SignUp failed!!','Try again later.');
     }

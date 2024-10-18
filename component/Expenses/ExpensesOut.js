@@ -13,7 +13,7 @@ const ExpensesOut = ({ expPeriod }) => {
   const presentDay = presentDate.getDate();
   const presentMonth = presentDate.getMonth() + 1;
   const presentYear = presentDate.getFullYear();
-  
+
   const filteredData = data.filter((exp) => {
     const expDate = new Date(exp.date);
     const expYear = expDate.getFullYear();
@@ -24,7 +24,7 @@ const ExpensesOut = ({ expPeriod }) => {
       expYear == presentYear &&
       expMonth == presentMonth &&
       expDay >= presentDay - 7 &&
-      expDay < presentDay
+      expDay <= presentDay
     ) {
       return exp;
     }

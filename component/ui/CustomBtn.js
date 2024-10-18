@@ -2,11 +2,11 @@ import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { colors } from "../../constants/Colors";
 
-const CustomBtn = ({ children, onPress, mode }) => {
+const CustomBtn = ({ children, onPress, mode,height }) => {
   return (
     <View>
       <Pressable onPress={onPress} style={({pressed})=>pressed? styles.pressed:''}>
-        <View style={[styles.btn, mode === "flat" && styles.flat,]}>
+        <View style={[styles.btn, mode === "flat" && styles.flat,{minHeight: height?height:'',}]}>
           <Text style={[styles.btnText, mode === "flat" && styles.flatText]}>
             {children}
           </Text>
@@ -22,7 +22,9 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     padding: 6,
     backgroundColor: colors.primary300,
-    minWidth:150
+    minWidth:150,
+    justifyContent:'center',
+    
   },
   flat: {
     backgroundColor: "transparent",
@@ -30,6 +32,7 @@ const styles = StyleSheet.create({
   btnText: {
     color: "white",
     textAlign: "center",
+    fontWeight:'bold'
   },
   flatText: {
     color: colors.primary300,
